@@ -4,7 +4,7 @@
 #                                                                             
 # PROGRAMMER:Emmanuella Dasilva-Domingos
 # DATE CREATED:29/06/2024                                  
-# REVISED DATE: 
+# REVISED DATE:08/07/2024 
 # PURPOSE: Create a function calculates_results_stats that calculates the 
 #          statistics of the results of the programrun using the classifier's model 
 #          architecture to classify the images. This function will use the 
@@ -68,16 +68,14 @@ def calculates_results_stats(results_dic):
                      and the previous topic Calculating Results in the class for details
                      on how to calculate the counts and statistics.
     """        
-    # Replace None with the results_stats_dic dictionary that you created with 
-    # this function 
 
     results_stats_dic={}
-    numofimgs=len(results_dic)
+    num_of_imgs=len(results_dic)
     num_correct_dogs=0#a
-    numofdogimgs=0#b
+    num_of_dog_imgs=0#b
     numofcorrectnondogimg=0#c
-    numOfNotDogImgs=0#d
-    numOfCorrBreedMatches=0
+    numofnotdogimgs=0#d
+    numofcorrectbreedmatches=0
     n_match=0
 
 
@@ -86,29 +84,29 @@ def calculates_results_stats(results_dic):
         if results_dic[img][3]==1 and results_dic[img][4]==1:#a
                 num_correct_dogs+=1
         if results_dic[img][3]==1: #b
-                numofdogimgs+=1
+                num_of_dog_imgs+=1
         if results_dic[img][3]==0 and results_dic[img][4]==0:#c
                 numofcorrectnondogimg+=1
         if results_dic[img][2]==1:
                 n_match+=1
 
-        numOfNotDogImgs=numofimgs-numofdogimgs#d
+        numofnotdogimgs=num_of_imgs-num_of_dog_imgs#d
 
         if results_dic[img][3]==1 and results_dic[img][2]==1:#e
-                numOfCorrBreedMatches+=1
+                numofcorrectbreedmatches+=1
 
     results_stats_dic['n_correct_dogs']=num_correct_dogs
-    results_stats_dic['pct_correct_dogs']=(num_correct_dogs/numofdogimgs)*100
-    results_stats_dic['n_correct_breed']=numOfCorrBreedMatches
-    results_stats_dic['pct_correct_breed']=(numOfCorrBreedMatches/numofdogimgs)*100
-    if numOfNotDogImgs>0:
-        results_stats_dic['pct_correct_notdogs']=(numofcorrectnondogimg/numOfNotDogImgs)*100
+    results_stats_dic['pct_correct_dogs']=(num_correct_dogs/num_of_dog_imgs)*100
+    results_stats_dic['n_correct_breed']=numofcorrectbreedmatches
+    results_stats_dic['pct_correct_breed']=(numofcorrectbreedmatches/num_of_dog_imgs)*100
+    if numofnotdogimgs>0:
+        results_stats_dic['pct_correct_notdogs']=(numofcorrectnondogimg/numofnotdogimgs)*100
     results_stats_dic['n_match']=n_match  
-    results_stats_dic['n_dogs_img']=numofdogimgs
+    results_stats_dic['n_dogs_img']=num_of_dog_imgs
     results_stats_dic['n_notdogs_img']=numofcorrectnondogimg
-    results_stats_dic['n_images']=numofimgs
+    results_stats_dic['n_images']=num_of_imgs
 
-    results_stats_dic['n_correct_notdogs']=numOfNotDogImgs
-    results_stats_dic['pct_match']=(n_match/numofimgs)*100
+    results_stats_dic['n_correct_notdogs']=numofnotdogimgs
+    results_stats_dic['pct_match']=(n_match/num_of_imgs)*100
 
     return results_stats_dic
