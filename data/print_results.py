@@ -3,8 +3,8 @@
 # */AIPND-revision/intropyproject-classify-pet-images/print_results.py
 #                                                                             
 # PROGRAMMER:Emmanuella Dasilva-Domingos 
-# DATE CREATED:04/06/2024
-# REVISED DATE: 
+# DATE CREATED:04/07/2024
+# REVISED DATE:08/07/2024 
 # PURPOSE: Create a function print_results that prints the results statistics
 #          from the results statistics dictionary (results_stats_dic). It 
 #          should also allow the user to be able to print out cases of misclassified
@@ -69,27 +69,26 @@ def print_results(results_dic, results_stats_dic, model,
     print(f"Number of Images: {results_stats_dic['n_images']}")
     print(f"Number of Dog Images: {results_stats_dic['n_dogs_img']}")
     print(f"Number of Not-a-Dog Images: {results_stats_dic['n_notdogs_img']}")
-    print(f"Number of Matches: {results_stats_dic['n_match']}")
-    print(f"Number of Correct Dog Matches: {results_stats_dic['n_correct_dogs']}")
-    print(f"Number of Correct Breed Matches: {results_stats_dic['n_correct_breed']}")
-    print(f"Number of Correct Not-a-Dog Matches: {results_stats_dic['n_correct_notdogs']}")
+    
     print(f"Percentage of Correct Dog Matches: {results_stats_dic['pct_correct_dogs']:.2f}%")
     print(f"Percentage of Correct Breed Matches: {results_stats_dic['pct_correct_breed']:.2f}%")
     print(f"Percentage of Correct Not-a-Dog Matches: {results_stats_dic['pct_correct_notdogs']:.2f}%")
     print(f"Percentage of Matches: {results_stats_dic['pct_match']:.2f}%")
+    n_correct_dogs=results_stats_dic['n_correct_dogs']
+    n_correct_notdogs=results_stats_dic['n_correct_notdogs']
+    n_correct_breed=results_stats_dic['n_correct_breed']
 
     # Print misclassified dogs if requested
-    if print_incorrect_dogs:
+    if print_incorrect_dogs and n_correct_dogs+n_correct_notdogs!= results_stats_dic['n_images']:
         print("\nINCORRECT Dog/NOT Dog Assignments:")
         for key, value in results_dic.items():
             if value[3] != value[4]:  # Misclassified dog vs. not dog
                 print(f"Real: {value[0]:>26}   Classifier: {value[1]:>30}")
 
     # Print misclassified breeds if requested
-    if print_incorrect_breed:
+    if print_incorrect_breed and n_correct_dogs!=n_correct_breed:
         print("\nINCORRECT Dog Breed Assignment:")
         for key, value in results_dic.items():
             if sum(value[3:]) == 2 and value[2] == 0:  # It's a dog, but breed is misclassified
                 print(f"Real: {value[0]:>26}   Classifier: {value[1]:>30}")
-    None
                 
