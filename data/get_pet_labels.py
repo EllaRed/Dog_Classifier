@@ -51,8 +51,5 @@ def get_pet_labels(image_dir):
           label[0]+=(word+" ").lower()
       label[0]=label[0].strip()
       pet_label_dict[petfile]=label
-
-    # Replace None with the results_dic dictionary that you created with this
-    # function
+    
     return pet_label_dict
-#print(get_pet_labels('data/pet_images/'))
